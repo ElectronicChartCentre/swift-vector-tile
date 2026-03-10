@@ -338,7 +338,7 @@ public class VectorTileEncoder {
         layer!._features.append(feature)
     }
 
-    private func commands(coordinates cs: [any Coordinate], closePathAtEnd closedEnd: Bool, isMultiPoint mp: Bool) -> [UInt32] {
+    private func commands(coordinates cs: any CoordinateSequence, closePathAtEnd closedEnd: Bool, isMultiPoint mp: Bool) -> [UInt32] {
         let count = Int(cs.count)
 
         if count == 0 {
@@ -406,7 +406,7 @@ public class VectorTileEncoder {
         return toIntArray(intArray: r)
     }
 
-    private func commands(coordinates cs: [any Coordinate], closePathAtEnd closedEnd: Bool) -> [UInt32] {
+    private func commands(coordinates cs: any CoordinateSequence, closePathAtEnd closedEnd: Bool) -> [UInt32] {
         return commands(coordinates: cs, closePathAtEnd: closedEnd, isMultiPoint: false)
     }
 
@@ -452,11 +452,12 @@ public class VectorTileEncoder {
         }
         
         if let point = geo as? Point {
-            return commands(coordinates: [point.coordinate], closePathAtEnd: shouldClosePath(geometry: geo), isMultiPoint: false)
+            let cs = ArrayCoordinateSequence([point.coordinate])
+            return commands(coordinates: cs, closePathAtEnd: shouldClosePath(geometry: geo), isMultiPoint: false)
         }
         
         if let multiPoint = geo as? MultiPoint {
-            return commands(coordinates: multiPoint.coordinates(), closePathAtEnd: shouldClosePath(geometry: geo), isMultiPoint: true)
+            return commands(coordinates: multiPoint.coordinates, closePathAtEnd: shouldClosePath(geometry: geo), isMultiPoint: true)
         }
 
         print("TODO: Unsupported geometry type: \(type(of: geo))")
