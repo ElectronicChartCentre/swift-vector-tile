@@ -11,14 +11,6 @@ import SwiftGeo
  
  Based on https://github.com/manimaul/SwiftVectorTiles that is based on https://github.com/ElectronicChartCentre/java-vector-tile
  
- This is how to recreate VectorTile.swift:
- ```
- brew install swift-protobuf
- cd proto/
- protoc --swift_out=. vector_tile.proto
- mv vector_tile.pb.swift ../Classes/VectorTile.swift
- ```
- 
  */
 private class Feature {
     let _geometry: Geometry
