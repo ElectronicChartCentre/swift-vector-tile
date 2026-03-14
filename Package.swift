@@ -14,7 +14,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-protobuf", from: "1.35.1"),
-        .package(url: "https://github.com/ElectronicChartCentre/swift-geo", from: "0.0.7"),
+        .package(url: "https://github.com/ElectronicChartCentre/swift-geo", from: "0.0.8"),
         //.package(path: "../swift-geo"),
     ],
     targets: [
